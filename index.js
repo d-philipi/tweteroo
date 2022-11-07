@@ -33,13 +33,18 @@ app.post("/tweets", (req, res) => {
 		tweet: req.body.tweet
     }
 
-    posts.push(novoPost);
-    res.status(201).send("Ok");
+
+        posts.unshift(novoPost);
+        res.status(201).send("Ok");
 })
 
 app.get("/tweets", (req, res) => {
-
-    res.send(posts);
+    if(posts.length > 10){
+        const postsVistos = posts.slice(0,10);
+        res.send(postsVistos);
+    }else{
+        res.send(posts);
+    }
 })
 
 app.listen(5000);
